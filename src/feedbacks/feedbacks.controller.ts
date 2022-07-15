@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { Feedback } from "src/entity/feedback.entity";
 import { FeedbacksService } from "./feedbacks.service";
 
@@ -19,18 +19,19 @@ export class FeedbacksController {
 
     @Get(':id')
     getOneFeedback(@Param('id') id:number): Promise<Feedback> {
-        return this.feedbacksService.findOne(Number(id));
+        return this.feedbacksService.findOne(id);
+        // return this.feedbacksService.findOne(Number(id));
     }
 
-    @Post()
-    update(@Body() id:number, feedback:Feedback) {
-        return this.feedbacksService.update(id, feedback);
+    @Patch(':id')
+    updateFeedback(@Param('id') id:number, @Body() feedback:Feedback) : Promise<Feedback> {
+        return this.feedbacksService.update(Number(id), feedback);
     }
 
     
-    @Delete()
-    delete(@Body() id:number) {
-        return this.feedbacksService.delete(id);
+    @Delete(':id')
+    deleteFeedback(@Param('id') id:number) {
+        return this.feedbacksService.delete(Number(id));
     }
 
 }

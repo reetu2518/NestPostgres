@@ -17,8 +17,8 @@ export class FeedbacksService {
     return this.feedbackRepository.insert(feedback);
   }
 
-  async findOne(id): Promise<Feedback> {
-    return this.feedbackRepository.findOneByOrFail(id);
+  async findOne(id: any): Promise<Feedback> {
+    return this.feedbackRepository.findOneBy(id);
   }
 
   async update(id: number, feedback: Feedback): Promise<Feedback> {
@@ -29,7 +29,6 @@ export class FeedbacksService {
     await this.feedbackRepository.update(id, feedback);
     return this.findOne(id);
   }
-
 
   async delete(id: number): Promise<DeleteResult> {
     const feedbackToUpdate = await this.findOne(id);
